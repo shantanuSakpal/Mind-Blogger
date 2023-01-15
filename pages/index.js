@@ -43,11 +43,12 @@ export async function getServerSideProps() {
 
   //fetch categories here
   const categories = await fetchCategories();
+  console.log(categories)
   //fetch articles here
   const articles = await fetchArticles(queryString);
 
 
-
+  console.log(articles)
   return {
     props: {
 

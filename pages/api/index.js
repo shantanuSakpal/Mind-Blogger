@@ -17,9 +17,10 @@ const api = axios.create({
 
 
 //categories
+console.log(api)
 export const fetchCategories = async () => {
   return (
-    api.get('/api/categories')
+    api.get('/api/blogs')
   )
 }
 
