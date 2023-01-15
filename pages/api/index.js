@@ -30,3 +30,9 @@ export const fetchArticles = async (queryString) => {
     api.get(`/api/blogs?${queryString}`)
   )
 }
+
+export const fetchArticle = async (queryString) => {
+  return (
+    api.get(`/api/blogs?${queryString}`)
+  )
+}

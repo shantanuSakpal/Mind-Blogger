@@ -1,11 +1,9 @@
 import React from 'react'
-function handleOnSearch(value) {
-    console.log("searching");
-}
 
-export default function SearchBar() {
+
+export default function SearchBar({ handleOnSearch }) {
     return (
-        <div className='bg-logo-color-100 rounded-lg flex items-center mr-5'>
+        <div className='bg-logo-color-100 rounded-lg flex items-center '>
             <img className=' mx-2 p-1' src="/images/search.svg" alt="search-logo" width={30} height={30} />
             <input
                 className='outline-none px-2  bg-logo-color-100 w-40 '

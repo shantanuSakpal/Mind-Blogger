@@ -4,11 +4,17 @@ import SearchBar from '@/components/SearchBar';
 import Head from 'next/head'
 import { fetchArticles, fetchCategories } from './api'
 import qs from "qs"
+import { useRouter } from 'next/router';
+
 
 export default function Home(props) {
+  const router = useRouter();
   const CategoryArr = props.categories //array of categories
   const ArticleArr = props.articles
 
+  function handleOnSearch(query) {
+    router.push(`/?search=${query}`)
+  }
 
   return (
     <>
@@ -22,10 +28,10 @@ export default function Home(props) {
       <main>
         <div className='flex justify-between'>
           <CategoryTabs categoryArr={CategoryArr} />
-          <SearchBar />
+          <SearchBar handleOnSearch={handleOnSearch} />
         </div>
 
-        <div className='w-full h-screen border-4 rounded-md border-gray-200 p-4'>
+        <div className='w-full h-fit border-4 rounded-md border-gray-200 p-4'>
           <ArticlesList articlesList={ArticleArr} />
         </div>
 
@@ -35,9 +41,10 @@ export default function Home(props) {
   )
 }
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ query }) {
   const options = {
     populate: '*',
+
   }
   const queryString = qs.stringify(options);
 
@@ -46,7 +53,14 @@ export async function getServerSideProps() {
   //fetch articles here
   const articles = await fetchArticles(queryString);
 
-
+  if (query.search) {
+    console.log(query.search)
+    options.filter = {
+      Title: {
+        $containsi: query.search,
+      }
+    }
+  }
 
   return {
     props: {
